@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="form">
+        <label>
+            上传头像: <input type="file" id="file">
+        </label>
+        <button type="submit">上传</button>
+    </form>
+</body>
+
+</html>
+<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.js"></script>
+<script>
+    $("#form").on("submit", (e) => {
+        e.preventDefault();
+        var formData = new FormData();
+        var userPic = $("#file")[0].files[0];
+        console.log(userPic)
+        formData.append("userPic", userPic);
+        formData.append("userId", "Alley");
+
+        $.ajax({
+            type: "post",
+            data: formData,
+            cache: false,//不使用缓存
+            processData: false,
+            contentType: false,
+            url: "/users/updateUserPic",
+            success: function (data) {
+                console.log(data);
+            }
+        })
+    })
+</script>
